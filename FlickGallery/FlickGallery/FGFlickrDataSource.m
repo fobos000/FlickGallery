@@ -22,10 +22,6 @@
 @property (nonatomic) NSInteger page;
 @property (nonatomic) NSInteger totalCount;
 
-@property (nonatomic, strong) NSMutableDictionary *imageLoadingQueue;
-@property (nonatomic) BOOL stopLoading;
-@property (nonatomic, strong) dispatch_queue_t loadingQueue;
-
 @end
 
 @implementation FGFlickrDataSource
@@ -38,8 +34,6 @@
         _flickr.apiKey = apiKey;
         _searchResults = [@[] mutableCopy];
         _page = 0;
-        _imageLoadingQueue = [@{} mutableCopy];
-//        _loadingQueue
     }
     return self;
 }
@@ -47,9 +41,9 @@
 - (void)resetSearch
 {
     self.searchResults = [@[] mutableCopy];
-    self.imageLoadingQueue = [@{} mutableCopy];
-    self.stopLoading = YES;
     self.page = 0;
+    self.totalCount = 0;
+    self.currentSearchTerm = nil;
     self.currentPlaceId = nil;
 }
 
@@ -62,8 +56,8 @@
 {
     NSString *searchTerm = [term lowercaseString];
     if (![searchTerm isEqualToString:self.currentSearchTerm]) {
-        self.currentSearchTerm = searchTerm;
         [self resetSearch];
+        self.currentSearchTerm = searchTerm;
     }
     
     if (!self.currentPlaceId) {
@@ -89,7 +83,6 @@
             [self.searchResults addObjectsFromArray:results];
             self.page += 1;
             self.totalCount = totalCount;
-            //            [self loadPhotosForSearchResults:results];
         }
         if (completionBlock) {
             completionBlock(error);
@@ -113,27 +106,6 @@
     }
 }
 
-- (void)loadPhotosForSearchResults:(NSArray *)searchResults
-{
-    [[searchResults copy] enumerateObjectsUsingBlock:^(FlickrPhoto *flickrPhoto, NSUInteger idx, BOOL *stop) {
-        
-        
-        [Flickr loadImageForPhoto:flickrPhoto thumbnail:NO completionBlock:^(UIImage *photoImage, NSError *error) {
-            if (self.stopLoading) {
-                self.stopLoading = NO;
-                return;
-            }
-            if (!error) {
-                PhotoCompletionBlock block = [self.imageLoadingQueue objectForKey:@(idx)];
-                if (block) {
-                    [self.imageLoadingQueue removeObjectForKey:@(idx)];
-                    block(idx, photoImage);
-                }
-            }
-        }];
-    }];
-}
-
 - (void)loadPhotoAtIndex:(NSInteger)index completionBlock:(PhotoCompletionBlock)completionBlock;
 {
     FlickrPhoto *flickrPhotoAtIndex = self.searchResults[index];
@@ -141,7 +113,6 @@
     if (flickrPhotoAtIndex.largeImage) {
         completionBlock(index, flickrPhotoAtIndex.largeImage);
     } else {
-//        [self.imageLoadingQueue setObject:completionBlock forKey:@(index)];
         [Flickr loadImageForPhoto:flickrPhotoAtIndex thumbnail:NO completionBlock:^(UIImage *photoImage, NSError *error) {
             if (!error) {
                 completionBlock(index, photoImage);

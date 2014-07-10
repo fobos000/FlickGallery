@@ -60,7 +60,7 @@
 - (void)showFailureAlert
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                    message:@"Failed to load pictures :(\nTry again later"
+                                                    message:@"Failed to load pictures :(\nTry again"
                                                    delegate:nil
                                           cancelButtonTitle:@"Ok"
                                           otherButtonTitles:nil];
