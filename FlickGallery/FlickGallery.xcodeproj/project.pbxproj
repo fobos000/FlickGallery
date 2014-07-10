@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F47E1AA196DBAA100907CCF /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F47E1A9196DBAA100907CCF /* Storyboard.storyboard */; };
+		7F47E1B0196DBB1F00907CCF /* FGGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F47E1AF196DBB1F00907CCF /* FGGalleryViewController.m */; };
+		7F47E1B5196DBE5600907CCF /* Flickr.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F47E1B2196DBE5600907CCF /* Flickr.m */; };
+		7F47E1B6196DBE5600907CCF /* FlickrPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F47E1B4196DBE5600907CCF /* FlickrPhoto.m */; };
+		7F47E1B9196DC13B00907CCF /* FGTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F47E1B8196DC13B00907CCF /* FGTableViewCell.m */; };
+		7F47E1BE196DDB9A00907CCF /* FGFlickrDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F47E1BD196DDB9A00907CCF /* FGFlickrDataSource.m */; };
 		F6C13AAC196D9E13000F611A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6C13AAB196D9E13000F611A /* Foundation.framework */; };
 		F6C13AAE196D9E13000F611A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6C13AAD196D9E13000F611A /* CoreGraphics.framework */; };
 		F6C13AB0196D9E13000F611A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6C13AAF196D9E13000F611A /* UIKit.framework */; };
@@ -32,6 +38,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7F47E1A9196DBAA100907CCF /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		7F47E1AE196DBB1F00907CCF /* FGGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FGGalleryViewController.h; sourceTree = "<group>"; };
+		7F47E1AF196DBB1F00907CCF /* FGGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FGGalleryViewController.m; sourceTree = "<group>"; };
+		7F47E1B1196DBE5600907CCF /* Flickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flickr.h; sourceTree = "<group>"; };
+		7F47E1B2196DBE5600907CCF /* Flickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Flickr.m; sourceTree = "<group>"; };
+		7F47E1B3196DBE5600907CCF /* FlickrPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrPhoto.h; sourceTree = "<group>"; };
+		7F47E1B4196DBE5600907CCF /* FlickrPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrPhoto.m; sourceTree = "<group>"; };
+		7F47E1B7196DC13B00907CCF /* FGTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FGTableViewCell.h; sourceTree = "<group>"; };
+		7F47E1B8196DC13B00907CCF /* FGTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FGTableViewCell.m; sourceTree = "<group>"; };
+		7F47E1BC196DDB9A00907CCF /* FGFlickrDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FGFlickrDataSource.h; sourceTree = "<group>"; };
+		7F47E1BD196DDB9A00907CCF /* FGFlickrDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FGFlickrDataSource.m; sourceTree = "<group>"; };
 		F6C13AA8196D9E13000F611A /* FlickGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6C13AAB196D9E13000F611A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F6C13AAD196D9E13000F611A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -109,6 +126,17 @@
 			children = (
 				F6C13ABA196D9E13000F611A /* FGAppDelegate.h */,
 				F6C13ABB196D9E13000F611A /* FGAppDelegate.m */,
+				7F47E1AE196DBB1F00907CCF /* FGGalleryViewController.h */,
+				7F47E1AF196DBB1F00907CCF /* FGGalleryViewController.m */,
+				7F47E1BC196DDB9A00907CCF /* FGFlickrDataSource.h */,
+				7F47E1BD196DDB9A00907CCF /* FGFlickrDataSource.m */,
+				7F47E1B1196DBE5600907CCF /* Flickr.h */,
+				7F47E1B2196DBE5600907CCF /* Flickr.m */,
+				7F47E1B3196DBE5600907CCF /* FlickrPhoto.h */,
+				7F47E1B4196DBE5600907CCF /* FlickrPhoto.m */,
+				7F47E1B7196DC13B00907CCF /* FGTableViewCell.h */,
+				7F47E1B8196DC13B00907CCF /* FGTableViewCell.m */,
+				7F47E1A9196DBAA100907CCF /* Storyboard.storyboard */,
 				F6C13ABD196D9E13000F611A /* Images.xcassets */,
 				F6C13AB2196D9E13000F611A /* Supporting Files */,
 			);
@@ -222,6 +250,7 @@
 			files = (
 				F6C13AB6196D9E13000F611A /* InfoPlist.strings in Resources */,
 				F6C13ABE196D9E13000F611A /* Images.xcassets in Resources */,
+				7F47E1AA196DBAA100907CCF /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,6 +270,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6C13AB8196D9E13000F611A /* main.m in Sources */,
+				7F47E1B0196DBB1F00907CCF /* FGGalleryViewController.m in Sources */,
+				7F47E1B9196DC13B00907CCF /* FGTableViewCell.m in Sources */,
+				7F47E1B5196DBE5600907CCF /* Flickr.m in Sources */,
+				7F47E1BE196DDB9A00907CCF /* FGFlickrDataSource.m in Sources */,
+				7F47E1B6196DBE5600907CCF /* FlickrPhoto.m in Sources */,
 				F6C13ABC196D9E13000F611A /* FGAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -438,6 +472,7 @@
 				F6C13AD6196D9E13000F611A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F6C13AD7196D9E13000F611A /* Build configuration list for PBXNativeTarget "FlickGalleryTests" */ = {
 			isa = XCConfigurationList;
@@ -446,6 +481,7 @@
 				F6C13AD9196D9E13000F611A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
