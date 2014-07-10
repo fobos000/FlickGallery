@@ -28,6 +28,7 @@
 		F6C13AE1196ED89F000F611A /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F6C13ADE196ED89F000F611A /* SVProgressHUD.bundle */; };
 		F6C13AE2196ED89F000F611A /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F6C13AE0196ED89F000F611A /* SVProgressHUD.m */; };
 		F6C13AE4196ED8BF000F611A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6C13AE3196ED8BF000F611A /* QuartzCore.framework */; };
+		F6C13AE7196EEC77000F611A /* FGLoadingTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F6C13AE6196EEC77000F611A /* FGLoadingTableCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,8 @@
 		F6C13ADF196ED89F000F611A /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		F6C13AE0196ED89F000F611A /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		F6C13AE3196ED8BF000F611A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		F6C13AE5196EEC77000F611A /* FGLoadingTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FGLoadingTableCell.h; sourceTree = "<group>"; };
+		F6C13AE6196EEC77000F611A /* FGLoadingTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FGLoadingTableCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +153,8 @@
 				7F47E1A9196DBAA100907CCF /* Storyboard.storyboard */,
 				F6C13ABD196D9E13000F611A /* Images.xcassets */,
 				F6C13AB2196D9E13000F611A /* Supporting Files */,
+				F6C13AE5196EEC77000F611A /* FGLoadingTableCell.h */,
+				F6C13AE6196EEC77000F611A /* FGLoadingTableCell.m */,
 			);
 			path = FlickGallery;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 				7F47E1B0196DBB1F00907CCF /* FGGalleryViewController.m in Sources */,
 				7F47E1B9196DC13B00907CCF /* FGTableViewCell.m in Sources */,
 				7F47E1B5196DBE5600907CCF /* Flickr.m in Sources */,
+				F6C13AE7196EEC77000F611A /* FGLoadingTableCell.m in Sources */,
 				7F47E1BE196DDB9A00907CCF /* FGFlickrDataSource.m in Sources */,
 				7F47E1B6196DBE5600907CCF /* FlickrPhoto.m in Sources */,
 				F6C13ABC196D9E13000F611A /* FGAppDelegate.m in Sources */,

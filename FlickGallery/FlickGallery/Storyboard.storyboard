@@ -36,7 +36,7 @@
                                     <outlet property="photoView" destination="Yao-YR-Eut" id="iB0-UK-jmd"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LoadingCell" rowHeight="40" id="3Eq-zg-TZe">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LoadingCell" rowHeight="40" id="3Eq-zg-TZe" customClass="FGLoadingTableCell">
                                 <rect key="frame" x="0.0" y="310" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Eq-zg-TZe" id="oSo-qh-CO1">
@@ -53,6 +53,9 @@
                                         <constraint firstAttribute="centerY" secondItem="143-NZ-eqe" secondAttribute="centerY" constant="-0.5" id="vFQ-N9-jwh"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="activityIndicator" destination="143-NZ-eqe" id="Qh4-fI-JeH"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
