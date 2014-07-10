@@ -15,9 +15,13 @@
 @interface FGFlickrDataSource ()
 
 @property (nonatomic, strong) Flickr *flickr;
+
 @property (nonatomic, strong) NSMutableArray *searchResults;
 @property (nonatomic, strong) NSString *currentSearchTerm;
+@property (nonatomic, strong) NSString *currentPlaceId;
 @property (nonatomic) NSInteger page;
+@property (nonatomic) NSInteger totalCount;
+
 @property (nonatomic, strong) NSMutableDictionary *imageLoadingQueue;
 @property (nonatomic) BOOL stopLoading;
 @property (nonatomic, strong) dispatch_queue_t loadingQueue;
@@ -33,7 +37,7 @@
         _flickr = [[Flickr alloc] init];
         _flickr.apiKey = apiKey;
         _searchResults = [@[] mutableCopy];
-        _page = 1;
+        _page = 0;
         _imageLoadingQueue = [@{} mutableCopy];
 //        _loadingQueue
     }
@@ -45,7 +49,8 @@
     self.searchResults = [@[] mutableCopy];
     self.imageLoadingQueue = [@{} mutableCopy];
     self.stopLoading = YES;
-    self.page = 1;
+    self.page = 0;
+    self.currentPlaceId = nil;
 }
 
 - (NSInteger)numberOfResults
@@ -61,10 +66,30 @@
         [self resetSearch];
     }
     
-    [self.flickr searchFlickrForTerm:term page:self.page completionBlock:^(NSString *searchTerm, NSArray *results, NSError *error) {
+    if (!self.currentPlaceId) {
+        [self.flickr searchFlickrForLocation:term completionBlock:^(NSString *placeId, NSError *error) {
+            if (!error) {
+                [self searchFlickrByPlace:placeId completionBlock:completionBlock];
+                self.currentPlaceId = placeId;
+            } else {
+                if (completionBlock) {
+                    completionBlock(error);
+                }
+            }
+        }];
+    } else {
+        [self searchFlickrByPlace:self.currentPlaceId completionBlock:completionBlock];
+    }
+}
+
+- (void)searchFlickrByPlace:(NSString *)placeId completionBlock:(void (^)(NSError *error))completionBlock
+{
+    [self.flickr searchFlickrForTerm:placeId page:self.page + 1 completionBlock:^(NSString *searchTerm, NSArray *results, NSInteger totalCount, NSError *error) {
         if (!error) {
             [self.searchResults addObjectsFromArray:results];
-//            [self loadPhotosForSearchResults:results];
+            self.page += 1;
+            self.totalCount = totalCount;
+            //            [self loadPhotosForSearchResults:results];
         }
         if (completionBlock) {
             completionBlock(error);
@@ -74,13 +99,12 @@
 
 - (BOOL)canLoadNextPage
 {
-    return self.page * kPerPage >= self.searchResults.count;
+    return self.totalCount > self.searchResults.count;
 }
 
 - (void)loadNextPageWithCompletionBlock:(void (^)(NSError *error))completionBlock
 {
     if ([self canLoadNextPage]) {
-        self.page++;
         [self searchFlickrForTerm:self.currentSearchTerm completionBlock:completionBlock];
     } else {
         if (completionBlock) {

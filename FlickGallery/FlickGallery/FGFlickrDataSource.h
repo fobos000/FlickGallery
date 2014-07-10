@@ -13,6 +13,7 @@ typedef void (^PhotoCompletionBlock)(NSInteger index, UIImage *photo);
 @interface FGFlickrDataSource : NSObject
 
 @property (nonatomic, readonly) NSInteger numberOfResults;
+@property (nonatomic, readonly) BOOL canLoadNextPage;
 
 - (id)initWithAPIKey:(NSString *)apiKey;
 

@@ -13,6 +13,7 @@
 @interface FGGalleryViewController ()
 
 @property (nonatomic, strong) FGFlickrDataSource *flickrDataSource;
+@property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
 
 @end
 
@@ -30,10 +31,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationItem.titleView = self.searchBar;
 
     _flickrDataSource = [[FGFlickrDataSource alloc] initWithAPIKey:@"ec093a13c4c99829b40e15b515111cf1"];
-
-    [_flickrDataSource searchFlickrForTerm:@"flower" completionBlock:^(NSError *error) {
+    [_flickrDataSource searchFlickrForTerm:@"London" completionBlock:^(NSError *error) {
         if (error) {
             
         } else {
@@ -54,13 +56,28 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.flickrDataSource.numberOfResults;
+    NSInteger numberOfRows = self.flickrDataSource.numberOfResults;
+    
+    if (self.flickrDataSource.canLoadNextPage) {
+        numberOfRows += 1;
+    }
+    
+    return numberOfRows;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FGTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PhotoCell" forIndexPath:indexPath];
+    if (indexPath.row < self.flickrDataSource.numberOfResults) {
+        return [self photoCellAtIndexPath:indexPath];
+    } else {
+        return [self loadingCell];
+    }
+}
+
+- (UITableViewCell *)photoCellAtIndexPath:(NSIndexPath *)indexPath
+{
+    FGTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PhotoCell" forIndexPath:indexPath];
     [cell setPhoto:nil];
     
     [self.flickrDataSource loadPhotoAtIndex:indexPath.row completionBlock:^(NSInteger index, UIImage *photo) {
@@ -75,12 +92,36 @@
     return cell;
 }
 
+- (UITableViewCell *)loadingCell
+{
+    UITableViewCell *loadingCell = [self.tableView dequeueReusableCellWithIdentifier:@"LoadingCell"];
+    return loadingCell;
+}
+
 - (BOOL)cellAtIndexPathIsVisible:(NSIndexPath *)indexPath
 {
     BOOL test = [self.tableView cellForRowAtIndexPath:indexPath] != nil;
     return test;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == self.flickrDataSource.numberOfResults) {
+        return 40;
+    }
+    return tableView.rowHeight;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell
+forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == self.flickrDataSource.numberOfResults) {
+        [self.flickrDataSource loadNextPageWithCompletionBlock:^(NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        }];
+    }
+}
 
 /*
 // Override to support conditional editing of the table view.
