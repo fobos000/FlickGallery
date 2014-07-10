@@ -17,7 +17,7 @@
 @property (nonatomic, strong) Flickr *flickr;
 
 @property (nonatomic, strong) NSMutableArray *searchResults;
-@property (nonatomic, strong) NSString *currentSearchTerm;
+@property (nonatomic, strong, readwrite) NSString *currentSearchTerm;
 @property (nonatomic, strong) NSString *currentPlaceId;
 @property (nonatomic) NSInteger page;
 @property (nonatomic) NSInteger totalCount;

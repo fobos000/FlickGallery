@@ -14,6 +14,7 @@ typedef void (^PhotoCompletionBlock)(NSInteger index, UIImage *photo);
 
 @property (nonatomic, readonly) NSInteger numberOfResults;
 @property (nonatomic, readonly) BOOL canLoadNextPage;
+@property (nonatomic, strong, readonly) NSString *currentSearchTerm;
 
 - (id)initWithAPIKey:(NSString *)apiKey;
 

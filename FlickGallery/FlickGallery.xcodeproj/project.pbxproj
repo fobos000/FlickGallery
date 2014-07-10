@@ -25,6 +25,9 @@
 		F6C13AC7196D9E13000F611A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6C13AAF196D9E13000F611A /* UIKit.framework */; };
 		F6C13ACF196D9E13000F611A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F6C13ACD196D9E13000F611A /* InfoPlist.strings */; };
 		F6C13AD1196D9E13000F611A /* FlickGalleryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F6C13AD0196D9E13000F611A /* FlickGalleryTests.m */; };
+		F6C13AE1196ED89F000F611A /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F6C13ADE196ED89F000F611A /* SVProgressHUD.bundle */; };
+		F6C13AE2196ED89F000F611A /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F6C13AE0196ED89F000F611A /* SVProgressHUD.m */; };
+		F6C13AE4196ED8BF000F611A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6C13AE3196ED8BF000F611A /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +68,11 @@
 		F6C13ACC196D9E13000F611A /* FlickGalleryTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FlickGalleryTests-Info.plist"; sourceTree = "<group>"; };
 		F6C13ACE196D9E13000F611A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F6C13AD0196D9E13000F611A /* FlickGalleryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlickGalleryTests.m; sourceTree = "<group>"; };
+		F6C13ADD196ED89F000F611A /* SVProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
+		F6C13ADE196ED89F000F611A /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		F6C13ADF196ED89F000F611A /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		F6C13AE0196ED89F000F611A /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		F6C13AE3196ED8BF000F611A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6C13AE4196ED8BF000F611A /* QuartzCore.framework in Frameworks */,
 				F6C13AAE196D9E13000F611A /* CoreGraphics.framework in Frameworks */,
 				F6C13AB0196D9E13000F611A /* UIKit.framework in Frameworks */,
 				F6C13AAC196D9E13000F611A /* Foundation.framework in Frameworks */,
@@ -94,6 +103,7 @@
 		F6C13A9F196D9E13000F611A = {
 			isa = PBXGroup;
 			children = (
+				F6C13ADC196ED89F000F611A /* SVProgressHUD */,
 				F6C13AB1196D9E13000F611A /* FlickGallery */,
 				F6C13ACA196D9E13000F611A /* FlickGalleryTests */,
 				F6C13AAA196D9E13000F611A /* Frameworks */,
@@ -113,6 +123,7 @@
 		F6C13AAA196D9E13000F611A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F6C13AE3196ED8BF000F611A /* QuartzCore.framework */,
 				F6C13AAB196D9E13000F611A /* Foundation.framework */,
 				F6C13AAD196D9E13000F611A /* CoreGraphics.framework */,
 				F6C13AAF196D9E13000F611A /* UIKit.framework */,
@@ -170,6 +181,17 @@
 				F6C13ACD196D9E13000F611A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F6C13ADC196ED89F000F611A /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				F6C13ADD196ED89F000F611A /* SVProgressHUD-Prefix.pch */,
+				F6C13ADE196ED89F000F611A /* SVProgressHUD.bundle */,
+				F6C13ADF196ED89F000F611A /* SVProgressHUD.h */,
+				F6C13AE0196ED89F000F611A /* SVProgressHUD.m */,
+			);
+			path = SVProgressHUD;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +273,7 @@
 				F6C13AB6196D9E13000F611A /* InfoPlist.strings in Resources */,
 				F6C13ABE196D9E13000F611A /* Images.xcassets in Resources */,
 				7F47E1AA196DBAA100907CCF /* Storyboard.storyboard in Resources */,
+				F6C13AE1196ED89F000F611A /* SVProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6C13AB8196D9E13000F611A /* main.m in Sources */,
+				F6C13AE2196ED89F000F611A /* SVProgressHUD.m in Sources */,
 				7F47E1B0196DBB1F00907CCF /* FGGalleryViewController.m in Sources */,
 				7F47E1B9196DC13B00907CCF /* FGTableViewCell.m in Sources */,
 				7F47E1B5196DBE5600907CCF /* Flickr.m in Sources */,

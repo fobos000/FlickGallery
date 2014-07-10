@@ -9,8 +9,11 @@
 #import "FGGalleryViewController.h"
 #import "FGTableViewCell.h"
 #import "FGFlickrDataSource.h"
+#import "SVProgressHUD.h"
 
-@interface FGGalleryViewController ()
+#define kLoadingCellHeight 40
+
+@interface FGGalleryViewController () <UISearchBarDelegate>
 
 @property (nonatomic, strong) FGFlickrDataSource *flickrDataSource;
 @property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
@@ -19,37 +22,49 @@
 
 @implementation FGGalleryViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    self.searchBar.delegate = self;
     self.navigationItem.titleView = self.searchBar;
+    
+    self.flickrDataSource = [[FGFlickrDataSource alloc] initWithAPIKey:@"ec093a13c4c99829b40e15b515111cf1"];
+}
 
-    _flickrDataSource = [[FGFlickrDataSource alloc] initWithAPIKey:@"ec093a13c4c99829b40e15b515111cf1"];
-    [_flickrDataSource searchFlickrForTerm:@"London" completionBlock:^(NSError *error) {
-        if (error) {
-            
-        } else {
-            dispatch_async(dispatch_get_main_queue(), ^{
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self performSearch:@"Rome"];
+}
+
+#pragma mark - 
+
+- (void)performSearch:(NSString *)searchTerm
+{
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
+    [self.flickrDataSource searchFlickrForTerm:searchTerm completionBlock:^(NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (error) {
+                [self showFailureAlert];
+            } else {
+                [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
                 [self.tableView reloadData];
-            });
-        }
+            }
+            [SVProgressHUD dismiss];
+        });
     }];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)showFailureAlert
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                    message:@"Failed to load pictures :(\nTry again later"
+                                                   delegate:nil
+                                          cancelButtonTitle:@"Ok"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 #pragma mark - Table view data source
@@ -107,7 +122,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == self.flickrDataSource.numberOfResults) {
-        return 40;
+        return kLoadingCellHeight;
     }
     return tableView.rowHeight;
 }
@@ -116,60 +131,43 @@
 forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == self.flickrDataSource.numberOfResults) {
         [self.flickrDataSource loadNextPageWithCompletionBlock:^(NSError *error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
+            if (error) {
+                
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableView reloadData];
+                });
+            }
         }];
     }
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+#pragma mark - UISearchBarDelegate
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    [searchBar resignFirstResponder];
+    searchBar.text = self.flickrDataSource.currentSearchTerm;
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
+    searchBar.showsCancelButton = YES;
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+    searchBar.showsCancelButton = NO;
 }
-*/
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    NSString *trimmedSearchTerm = [searchBar.text
+                                   stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (trimmedSearchTerm.length > 0) {
+        [self performSearch:trimmedSearchTerm];
+    }
+    [searchBar resignFirstResponder];
 }
-*/
 
 @end

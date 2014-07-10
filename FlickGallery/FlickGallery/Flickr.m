@@ -31,7 +31,7 @@ static NSString* const kFlickrAPIKey = @"d02c877c0a4220890f14fc95f8b16983";
 {
     if(!size)
     {
-        size = @"m";
+        size = @"q";
     }
     return [NSString stringWithFormat:@"http://farm%d.staticflickr.com/%d/%lld_%@_%@.jpg",flickrPhoto.farm,flickrPhoto.server,flickrPhoto.photoID,flickrPhoto.secret,size];
 }
